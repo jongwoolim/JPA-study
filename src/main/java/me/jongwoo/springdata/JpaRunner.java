@@ -8,6 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
 
 @Component
 @Transactional
@@ -19,6 +25,29 @@ public class JpaRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
+        //JPQL
+//        final TypedQuery<Post> query = entityManager.createQuery("select p from Post as p", Post.class);
+//        final List<Post> posts = query.getResultList();
+//        posts.forEach(System.out::println);
+
+        //타입세이프한 쿼리
+        final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<Post> query = builder.createQuery(Post.class);
+        final Root<Post> root = query.from(Post.class);
+        query.select(root);
+
+        final List<Post> posts = entityManager.createQuery(query).getResultList();
+        posts.forEach(System.out::println);
+
+        //native query
+        List<Post> posts1 = entityManager
+                .createNativeQuery("select * from post", Post.class).getResultList();
+        posts1.forEach(System.out::println);
+
+
+
+
+        /*
 //        Post post = new Post();
 //        post.setTitle("Spring Data JPA....");
 //
@@ -43,7 +72,7 @@ public class JpaRunner implements ApplicationRunner {
         loadPost.getComments().forEach(c ->{
             System.out.println("-------------");
             System.out.println(c.getComment());
-        });
+        });*/
 
 
 
