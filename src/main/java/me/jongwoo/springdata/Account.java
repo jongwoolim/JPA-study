@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@SuppressWarnings("ALL")
 public class Account {
 
     @Id
@@ -19,6 +20,12 @@ public class Account {
 
     @Temporal(TemporalType.TIME)
     private Date created = new Date();
+
+    @Embedded
+    @AttributeOverrides(
+            @AttributeOverride(name = "street", column = @Column(name="home_street"))
+    )
+    private Address address;
 
     private String yes;
 
