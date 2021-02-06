@@ -37,5 +37,18 @@ public class JpaRunner implements ApplicationRunner {
         session.save(study);
         //entityManager.persist(account);
 
+        //select 쿼리가 발생하지 않는다 1차캐시로 인해 persistent 상태에서 꺼내온다
+        final Account jongwoo = session.load(Account.class, account.getId());
+        //갹체 변화를 감지하여 update 쿼리를 해준다
+        // 더티 체킹(객체 변경 감지)
+        // write behind(객체 상태의 변화를 디비에 최대한 늦게 필요한 시점에 적용)
+        jongwoo.setUsername("jddung2");
+        jongwoo.setUsername("jongwoo2");
+        jongwoo.setUsername("jongwoo");
+        //객체 변화가 없으므 update 쿼리 발생x
+        System.out.println("==============");
+        System.out.println(jongwoo.getUsername());
+
+        //insert 쿼리는 트랙잭션 끝나고 날린다
     }
 }
