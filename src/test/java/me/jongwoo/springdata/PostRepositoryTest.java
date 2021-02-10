@@ -28,7 +28,13 @@ public class PostRepositoryTest {
 
         Post post = new Post();
         post.setTitle("hibernate");
+
+        //Transient
+        assertThat(postRepository.contains(post)).isFalse();
         postRepository.save(post);
+        //persist
+        assertThat(postRepository.contains(post)).isTrue();
+
         postRepository.findMyPost();
         postRepository.delete(post);
         postRepository.flush();
