@@ -1,5 +1,8 @@
 package me.jongwoo.springdata;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,6 +31,20 @@ public class PostRepositoryTest {
 
     @Autowired
     ApplicationContext applicationContext;
+
+
+    @Test
+    public void querydslTest(){
+        Post post = new Post();
+        post.setTitle("hibernate");
+        postRepository.save(post);
+
+        Predicate qpost = QPost.post.title.containsIgnoreCase("hibernate");
+        final Optional<Post> one = postRepository.findOne(qpost);
+        assertThat(one).isNotEmpty();
+
+    }
+
 
     @Test
     public void event(){
