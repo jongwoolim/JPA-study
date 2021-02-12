@@ -40,6 +40,18 @@ public class PostRepositoryTest {
     private EntityManager entityManager;
 
     @Test
+    public void updateTitle(){
+        Post jpa = savePost();
+        int update = postRepository.updateTitle("hibernate", jpa.getId());
+        assertThat(update).isEqualTo(1);
+
+        //비록 업데이트 쿼리가 발생했지만 아직 persist상태에 있는 객체는 그대로 캐시에 남아있었기 때문에
+        //post의 타이틀은 jpa가 나온다 해결방법: clearAutomatically 옵션
+        final Optional<Post> byId = postRepository.findById(jpa.getId());
+        assertThat(byId.get().getTitle()).isEqualTo("hibernate");
+    }
+
+    @Test
     public void findByTitle(){
         savePost();
 //        final List<Post> jpa = postRepository.findByTitle("jpa", Sort.by("title"));
@@ -47,10 +59,11 @@ public class PostRepositoryTest {
         assertThat(jpa.get(0).getTitle()).isEqualTo("jpa");
     }
 
-    private void savePost() {
+    private Post savePost() {
         Post post = new Post();
         post.setTitle("jpa");
         final Post savedPost = postRepository.save(post); // persist
+        return savedPost;
     }
 
     @Test
