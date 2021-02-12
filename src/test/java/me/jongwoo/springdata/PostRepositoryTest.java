@@ -38,6 +38,17 @@ public class PostRepositoryTest {
     private EntityManager entityManager;
 
     @Test
+    public void findByTitleStartsWith(){
+        Post post = new Post();
+        post.setTitle("jpa");
+        final Post savedPost = postRepository.save(post); // persist
+
+        final List<Post> jpa = postRepository.findByTitleStartingWith("jpa");
+
+        assertThat(jpa.size()).isEqualTo(1);
+    }
+
+    @Test
     public void save(){
         Post post = new Post();
         post.setTitle("jpa");
