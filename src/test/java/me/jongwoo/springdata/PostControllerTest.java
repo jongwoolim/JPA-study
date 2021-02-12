@@ -47,9 +47,7 @@ public class PostControllerTest {
     @Transactional
     public void getPosts() throws Exception{
 
-        Post post = new Post();
-        post.setTitle("spring jpa");
-        postRepository.save(post);
+        createPosts();
 
         mockMvc.perform(MockMvcRequestBuilders.get("/posts/")
                 .param("page", "0")
@@ -60,6 +58,17 @@ public class PostControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].title").value("Spring Data JPA...."))
         ;
+
+    }
+
+    private void createPosts() {
+        int postsCount = 100;
+        while(postsCount > 0){
+            Post post = new Post();
+            post.setTitle("spring jpa");
+            postRepository.save(post);
+            postsCount--;
+        }
 
     }
 }
