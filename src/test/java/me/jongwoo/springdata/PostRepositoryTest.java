@@ -11,6 +11,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -38,10 +40,22 @@ public class PostRepositoryTest {
     private EntityManager entityManager;
 
     @Test
-    public void findByTitleStartsWith(){
+    public void findByTitle(){
+        savePost();
+//        final List<Post> jpa = postRepository.findByTitle("jpa", Sort.by("title"));
+        final List<Post> jpa = postRepository.findByTitle("jpa", JpaSort.unsafe("LENGTH(title)"));
+        assertThat(jpa.get(0).getTitle()).isEqualTo("jpa");
+    }
+
+    private void savePost() {
         Post post = new Post();
         post.setTitle("jpa");
         final Post savedPost = postRepository.save(post); // persist
+    }
+
+    @Test
+    public void findByTitleStartsWith(){
+        savePost();
 
         final List<Post> jpa = postRepository.findByTitleStartingWith("jpa");
 
