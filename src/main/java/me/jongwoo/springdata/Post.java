@@ -3,6 +3,7 @@ package me.jongwoo.springdata;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,14 +16,17 @@ public class Post extends AbstractAggregateRoot<Post> {
 
     private String title;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
-    private Set<Comment> comments = new HashSet<>();
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
+//    @OneToMany(mappedBy = "post",cascade = CascadeType.PERSIST)
+//    private Set<Comment> comments = new HashSet<>();
 
 
-    public void addComment(Comment comment){
-        this.getComments().add(comment);
-        comment.setPost(this);
-    }
+//    public void addComment(Comment comment){
+//        this.getComments().add(comment);
+//        comment.setPost(this);
+//    }
 
     @Override
     public String toString() {
@@ -47,13 +51,13 @@ public class Post extends AbstractAggregateRoot<Post> {
         this.title = title;
     }
 
-    public Set<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
-    }
+//    public Set<Comment> getComments() {
+//        return comments;
+//    }
+//
+//    public void setComments(Set<Comment> comments) {
+//        this.comments = comments;
+//    }
 
     public Post publish() {
         this.registerEvent(new PostPublishedEvent(this));

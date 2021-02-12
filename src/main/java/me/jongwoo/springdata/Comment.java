@@ -1,9 +1,6 @@
 package me.jongwoo.springdata;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Comment {
@@ -13,8 +10,8 @@ public class Comment {
 
     private String comment;
 
-    @ManyToOne
-    private Post post;
+//    @ManyToOne
+//    private Post post;
 
     private Integer likeCount = 0;
 
@@ -42,11 +39,11 @@ public class Comment {
         this.comment = comment;
     }
 
-    public Post getPost() {
-        return post;
-    }
+//    public Post getPost() {
+//        return post;
+//    }
 
-    public void setPost(Post post) {
-        this.post = post;
-    }
+//    public void setPost(Post post) {
+//        this.post = post;
+//    }
 }
