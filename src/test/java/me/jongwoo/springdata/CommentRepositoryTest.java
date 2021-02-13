@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -19,10 +20,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
+@ActiveProfiles("test")
 public class CommentRepositoryTest {
 
     @Autowired
     CommentRepository commentRepository;
+
+
+    @Test
+    public void getById(){
+        commentRepository.getById(1l);
+
+        System.out.println("=============");
+
+        commentRepository.findById(1l);
+    }
 
     @Test
     public void crud(){

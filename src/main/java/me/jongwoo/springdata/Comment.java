@@ -10,10 +10,11 @@ public class Comment {
 
     private String comment;
 
-//    @ManyToOne
-//    private Post post;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Post post;
 
     private Integer likeCount = 0;
+
 
     public Integer getLikeCount() {
         return likeCount;
@@ -39,11 +40,11 @@ public class Comment {
         this.comment = comment;
     }
 
-//    public Post getPost() {
-//        return post;
-//    }
+    public Post getPost() {
+        return post;
+    }
 
-//    public void setPost(Post post) {
-//        this.post = post;
-//    }
+    public void setPost(Post post) {
+        this.post = post;
+    }
 }

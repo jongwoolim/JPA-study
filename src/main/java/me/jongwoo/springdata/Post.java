@@ -19,14 +19,14 @@ public class Post extends AbstractAggregateRoot<Post> {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
-//    @OneToMany(mappedBy = "post",cascade = CascadeType.PERSIST)
-//    private Set<Comment> comments = new HashSet<>();
+    @OneToMany(mappedBy = "post",cascade = CascadeType.PERSIST)
+    private Set<Comment> comments = new HashSet<>();
 
 
-//    public void addComment(Comment comment){
-//        this.getComments().add(comment);
-//        comment.setPost(this);
-//    }
+    public void addComment(Comment comment){
+        this.getComments().add(comment);
+        comment.setPost(this);
+    }
 
     @Override
     public String toString() {
@@ -51,13 +51,13 @@ public class Post extends AbstractAggregateRoot<Post> {
         this.title = title;
     }
 
-//    public Set<Comment> getComments() {
-//        return comments;
-//    }
-//
-//    public void setComments(Set<Comment> comments) {
-//        this.comments = comments;
-//    }
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
 
     public Post publish() {
         this.registerEvent(new PostPublishedEvent(this));

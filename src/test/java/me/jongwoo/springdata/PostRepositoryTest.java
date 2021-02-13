@@ -39,6 +39,10 @@ public class PostRepositoryTest {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Autowired
+    CommentRepository commentRepository;
+
+
     @Test
     public void updateTitle(){
         Post jpa = savePost();
