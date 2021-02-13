@@ -5,9 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -29,13 +27,25 @@ public class CommentRepositoryTest {
     @Autowired
     PostRepository postRepository;
 
+    @Test
+    public void qbe(){
+        Comment prove = new Comment();
+        prove.setBest(true);
+
+        final ExampleMatcher exampleMatcher = ExampleMatcher.matchingAny()
+                .withIgnorePaths("up", "down", "likeCount");
+
+        Example<Comment> example = Example.of(prove, exampleMatcher);
+
+        commentRepository.findAll(example);
+    }
+
 
     @Test
     public void isBest(){
 
         final Page<Comment> page =
                 commentRepository.findAll(CommentSpecs.isBest().or(CommentSpecs.isGood()), PageRequest.of(0, 10));
-
 
     }
 
