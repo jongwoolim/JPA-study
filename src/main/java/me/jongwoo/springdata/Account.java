@@ -23,8 +23,6 @@ public class Account {
     private Set<Study> studies = new HashSet<>();
 
 
-
-
     public void addStudy(Study study) {
         this.getStudies().add(study);
         study.setOwner(this);

@@ -126,7 +126,6 @@ public class PostRepositoryTest {
 
         applicationContext.publishEvent(event);
 
-
     }
 
     @Test
