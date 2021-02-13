@@ -29,6 +29,17 @@ public class CommentRepositoryTest {
     @Autowired
     PostRepository postRepository;
 
+
+    @Test
+    public void isBest(){
+
+        final Page<Comment> page =
+                commentRepository.findAll(CommentSpecs.isBest().or(CommentSpecs.isGood()), PageRequest.of(0, 10));
+
+
+    }
+
+
     @Test
     public void getComment(){
         Post post = new Post();

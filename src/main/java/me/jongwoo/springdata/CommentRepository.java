@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 //@RepositoryDefinition(domainClass = Comment.class, idClass = Long.class)
-public interface CommentRepository extends JpaRepository<Comment, Long> {
+public interface CommentRepository extends JpaRepository<Comment, Long>, JpaSpecificationExecutor<Comment> {
 
 //    Comment save(Comment comment);
 //    List<Comment> findAll();
