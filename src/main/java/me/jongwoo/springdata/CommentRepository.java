@@ -3,6 +3,7 @@ package me.jongwoo.springdata;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 //@RepositoryDefinition(domainClass = Comment.class, idClass = Long.class)
-public interface CommentRepository extends MyRepository<Comment, Long>{
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 
 //    Comment save(Comment comment);
 //    List<Comment> findAll();
@@ -24,4 +25,8 @@ public interface CommentRepository extends MyRepository<Comment, Long>{
 
     @EntityGraph(attributePaths = "post", type = EntityGraph.EntityGraphType.FETCH)
     Optional<Post> getById(Long id);
+
+    //closed 프로젝션
+//    List<CommentSummary> findByPost_Id(Long id);
+    <T> List<T> findByPost_Id(Long id, Class<T> type);
 }

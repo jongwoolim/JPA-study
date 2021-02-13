@@ -34,6 +34,7 @@ public class JpaRunner implements ApplicationRunner {
 //        final List<Post> posts = query.getResultList();
 //        posts.forEach(System.out::println);
 
+        /*
         //타입세이프한 쿼리
         final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<Post> query = builder.createQuery(Post.class);
@@ -48,7 +49,7 @@ public class JpaRunner implements ApplicationRunner {
                 .createNativeQuery("select * from post", Post.class).getResultList();
         posts1.forEach(System.out::println);
 
-
+*/
 
 
         /*

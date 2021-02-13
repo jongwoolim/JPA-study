@@ -15,6 +15,34 @@ public class Comment {
 
     private Integer likeCount = 0;
 
+    private int up;
+    private int down;
+    private boolean best;
+
+
+    public int getUp() {
+        return up;
+    }
+
+    public void setUp(int up) {
+        this.up = up;
+    }
+
+    public int getDown() {
+        return down;
+    }
+
+    public void setDown(int down) {
+        this.down = down;
+    }
+
+    public boolean isBest() {
+        return best;
+    }
+
+    public void setBest(boolean best) {
+        this.best = best;
+    }
 
     public Integer getLikeCount() {
         return likeCount;
